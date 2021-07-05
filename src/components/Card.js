@@ -25,9 +25,11 @@ export const Card = () => {
 					< Pet />
 					{dogs.map((dog) => (
 
-						<h1 key={dog.id}
-						onClick={() => {
-							setDogs(dog);
-        }}
-						> {dog.status} {dog.name} </h1>
-				
+						<h1 > {dog.status} {dog.name} </h1>
+					))}
+
+					
+
+			</div>
+	);
+};
