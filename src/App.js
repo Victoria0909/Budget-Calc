@@ -1,41 +1,17 @@
-import React, {useState} from 'react';
-import ExpenseList from "./Components/ExpenseList";
-import ExpenseForm from "./Components/ExpenseForm";
-import Alert from "./Components/Alert";
-
-
-const initialExpenses = [
-  {id:1, charge:"rent", amount:1600},
-  {id:2, charge:"car payment", amount:400},
-  {id:3, charge:"credit card bill", amount:1200}
-
-];
-
+import React from 'react'
+import './App.css';
+import {Card} from './components/Card';
+import {Pet} from './components/Pet'
 
 function App() {
- const [expenses, setExpenses] = useState(initialExpenses)
-//  console.log(expenses);
+  return (
+    <div className="App">
 
-  return ( <>
-  <h1> budget calculator </h1>
-  <main className="App">
-      <Alert />
-      <ExpenseForm />
-      <ExpenseList expenses={expenses}/>
+      < Card /> 
+      < Pet/ >
 
-  </main>
-  <h1> total spending: {" "}
-    <span className="total">
-       ${expenses.reduce((acc, curr) => {
-         return (acc+= curr.amount);
-       }, 0)}
-
-      </span>
-  </h1>
-
-
-  </>
-
-  )
+    </div>
+  );
 }
+
 export default App;
