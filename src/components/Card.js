@@ -1,12 +1,15 @@
-import Axios from "axios";
+import axios from "axios";
 import React, {useState , useEffect} from 'react';
-import {Pet} from './Pet'
 import './Card.css';
 
 export const Card = () => {
 			const [dogs, setDogs] = useState([]);
+			const [showContent, setShowContent] = useState(false);
+			const [content, setContent] = useState([]);
+
+
 			const fetchDogs= async () => {
-			const { data } = await Axios.get(
+			const { data } = await axios.get(
 
 				"https://petstore.swagger.io/v2/pet/findByStatus?status=available"
 				)
@@ -16,20 +19,48 @@ export const Card = () => {
 				console.log(dogs);
 			};
 		
-			useEffect(() => {
+			useEffect(() => {  //invocam functia in useEfect
 				fetchDogs();
 			}, []);
+
+			function handleClick(id) {
+				axios
+				.get(`https://petstore.swagger.io/v2/pet/${id}`, {
+
+				})
+				.then((response) => {
+					setContent(response);
+					setShowContent(true);
+					console.log(response)
+				})
+				.catch(() => {
+					console.log("error");
+				});
+				
+
+			}
 		
 			return (
 				<div className ='card-container'>
-					< Pet />
-					{dogs.map((dog) => (
 
-						<h1 > {dog.status} {dog.name} </h1>
-					))}
+{/* onclick=showPetDetails(this) id={dog.id} */}
 
-					
-
+						{dogs.map((dog, index) => (
+						<div key = {index}> 
+						<input  
+						type = 'button'
+						value = {dog.name}
+						id = {dog.id}
+						onClick= {(dog.id) => handleClick }
+						
+						/>
+						{/* {dog.status} {dog.name}  */}
+						
+						{showContent && <p dangerouslySetInnerHTML={{ __html: content }}> </p> }
+							
+						</div>
+				))}
+			
 			</div>
 	);
 };
